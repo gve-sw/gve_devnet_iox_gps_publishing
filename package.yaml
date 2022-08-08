@@ -1,0 +1,34 @@
+descriptor-schema-version: "2.2"
+
+info:
+  name: iox_docker_python_web
+  description: "IOx Docker Python GPS Publishing Application"
+  version: "1.0"
+  author-link: "http://www.cisco.com"
+  author-name: "Cisco Systems"
+
+app:
+  cpuarch: "aarch64"
+  type: docker
+  resources:
+    profile: default
+    network:
+      -
+        interface-name: eth0
+        ports:
+          tcp:
+            - 8000
+    devices:
+      - 
+        device-id: gps1
+        type: serial
+        label: gps1
+      - 
+        device-id: gps0
+        type: serial
+        label: HOST_DEV0
+
+  # Specify runtime and startup
+  startup:
+    rootfs: rootfs.tar
+    target: ["/usr/local/bin/python main.py"]
